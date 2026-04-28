@@ -30,12 +30,16 @@ function Hero() {
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   return (
-    <section ref={ref} className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
+    <section ref={ref} className="relative h-screen min-h-[700px] flex items-center overflow-hidden scanlines">
       {/* Parallax BG */}
       <motion.div style={{ y: bgY }} className="absolute inset-0 -top-[15%] -bottom-[15%]">
         <Image src="/images/hero.png" alt="Foundation repair work in Louisiana" fill sizes="100vw" className="object-cover" priority />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/70 to-black/40" />
+
+      {/* Geometric corner accents */}
+      <div className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-primary/60 z-10" />
+      <div className="absolute bottom-8 right-8 w-16 h-16 border-b-2 border-r-2 border-accent/40 z-10" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full grid lg:grid-cols-2 gap-12 items-center">
         {/* Left */}
@@ -44,81 +48,89 @@ function Hero() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 text-accent px-4 py-2 rounded-full text-sm font-bold tracking-wider uppercase mb-6"
+            className="inline-flex items-center gap-3 bg-accent/10 border border-accent/50 text-accent px-4 py-2 text-[10px] font-bold tracking-[0.2em] uppercase mb-6 corner-cut"
           >
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+            <span className="w-1.5 h-1.5 bg-accent rounded-full" />
             30+ Years of Experience
           </motion.div>
-          <AnimatedText
-            text="Setting the Standards in Foundation Repairs"
-            as="h1"
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.08] mb-6"
-            delay={0.3}
-          />
+
+          <div className="overflow-hidden mb-2">
+            <motion.h1
+              initial={{ y: "110%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              transition={{ duration: 0.85, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[0.95] uppercase tracking-tight"
+            >
+              Setting the<br />
+              <span className="text-primary text-glow-red">Standards</span><br />
+              in Foundation<br />Repairs
+            </motion.h1>
+          </div>
+
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="text-lg text-white/70 mb-8 max-w-lg leading-relaxed"
+            transition={{ delay: 0.9, duration: 0.6 }}
+            className="text-base text-white/65 mb-8 max-w-lg leading-relaxed mt-4"
           >
-            Expert foundation repair, house leveling, and structural support services across Alexandria, Baton Rouge, and Lafayette, Louisiana.
+            Expert foundation repair, house leveling, and structural support across Alexandria, Baton Rouge, and Lafayette, Louisiana.
           </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.5 }}
+            transition={{ delay: 1.1, duration: 0.5 }}
             className="flex flex-wrap gap-4"
           >
-            <Link href="/contact" className="bg-primary hover:bg-primary-dark text-white font-bold px-8 py-4 rounded-full text-sm uppercase tracking-wider transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/25">
+            <Link href="/contact" className="shimmer-btn text-white font-black px-8 py-4 text-[11px] uppercase tracking-[0.15em] transition-all corner-cut hover:shadow-lg hover:shadow-primary/30">
               Get Free Inspection
             </Link>
-            <Link href="/services" className="border-2 border-white/30 hover:border-white text-white font-bold px-8 py-4 rounded-full text-sm uppercase tracking-wider transition-all hover:bg-white/10">
+            <Link href="/services" className="border border-white/25 hover:border-accent text-white hover:text-accent font-bold px-8 py-4 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 corner-cut">
               Our Services
             </Link>
           </motion.div>
 
-          {/* Mobile CTA — visible only on mobile where form is hidden */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
+            transition={{ delay: 1.3 }}
             className="mt-6 lg:hidden flex items-center gap-4"
           >
-            <a href="tel:3183213000" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm font-semibold">
+            <a href="tel:3183213000" className="flex items-center gap-2 text-white/80 hover:text-accent transition-colors text-sm font-semibold">
               <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
               (318) 321-3000
             </a>
-            <span className="text-white/30">|</span>
-            <span className="text-accent text-xs font-bold uppercase tracking-wider">Free Estimates</span>
+            <span className="text-white/20">|</span>
+            <span className="text-accent text-[10px] font-bold uppercase tracking-widest">Free Estimates</span>
           </motion.div>
         </div>
 
-        {/* Right — Form (desktop only) */}
+        {/* Right — Form */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.7 }}
-          className="hidden lg:block glass-card rounded-2xl p-8"
+          className="hidden lg:block glass-card p-8 corner-cut-lg"
         >
-          <h3 className="text-2xl font-bold text-white mb-2 text-center font-display">
-            Get a Free Inspection Today!
+          <div className="h-0.5 bg-gradient-to-r from-primary to-accent mb-6 -mx-8 -mt-8" />
+          <h3 className="text-xl font-black text-white mb-1 text-center uppercase tracking-widest">
+            Free Inspection
           </h3>
-          <p className="text-white/50 text-sm text-center mb-6">No cost, no obligation</p>
+          <p className="text-white/40 text-xs text-center mb-6 tracking-widest uppercase">No cost · No obligation</p>
           <ContactForm variant="dark" />
         </motion.div>
       </div>
 
       {/* Scroll indicator */}
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ repeat: Infinity, duration: 2.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
       >
-        <svg className="w-6 h-6 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
+        <span className="text-[9px] uppercase tracking-[0.3em] text-white/30 font-bold">Scroll</span>
+        <div className="w-px h-10 bg-gradient-to-b from-white/30 to-transparent" />
       </motion.div>
     </section>
   );
@@ -128,22 +140,22 @@ function Hero() {
 function StatsTicker() {
   const stats = [
     { value: 30, suffix: "+", label: "Years Experience" },
-    { value: 3, suffix: "", label: "Locations" },
+    { value: 3, suffix: "", label: "LA Locations" },
     { value: 1000, suffix: "s+", label: "Projects Completed" },
     { value: 100, suffix: "%", label: "Licensed & Insured" },
   ];
   return (
-    <section className="bg-foreground relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primary/10" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center text-white">
+    <section className="bg-surface-dark relative overflow-hidden scanlines grain-overlay">
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/8 via-transparent to-accent/5" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 relative z-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 text-center text-white">
           {stats.map((s, i) => (
             <FadeUp key={i} delay={i * 0.1}>
-              <div className="py-2">
-                <div className="text-3xl sm:text-4xl font-light font-display tracking-tight">
+              <div className={`py-6 px-4 ${i < 3 ? 'lg:border-r border-white/8' : ''}`}>
+                <div className="text-4xl sm:text-5xl font-black font-display tracking-tight text-accent text-glow-gold">
                   <AnimatedCounter target={s.value} suffix={s.suffix} />
                 </div>
-                <div className="text-xs text-white/50 mt-2 uppercase tracking-[0.2em] font-semibold">{s.label}</div>
+                <div className="text-[10px] text-white/40 mt-2 uppercase tracking-[0.25em] font-bold">{s.label}</div>
               </div>
             </FadeUp>
           ))}
@@ -161,12 +173,21 @@ function ServicesSection() {
   return (
     <section className="py-14 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Section header — left-aligned for editorial feel */}
         <div className="mb-16 max-w-2xl">
           <FadeUp>
             <div className="accent-line mb-6" />
           </FadeUp>
-          <AnimatedText text="What We Do" as="h2" className="text-4xl sm:text-5xl font-bold text-foreground mb-4" />
+          <div className="overflow-hidden">
+            <motion.h2
+              initial={{ y: "100%", opacity: 0 }}
+              whileInView={{ y: "0%", opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl sm:text-5xl font-black text-foreground mb-4 uppercase tracking-tight"
+            >
+              What We Do
+            </motion.h2>
+          </div>
           <FadeUp delay={0.2}>
             <p className="text-lg text-muted leading-relaxed">
               Call a foundation repair company you can trust. Setting the standards in all areas we serve across Louisiana.
@@ -174,41 +195,37 @@ function ServicesSection() {
           </FadeUp>
         </div>
 
-        {/* Featured service — large editorial card */}
+        {/* Featured service */}
         <FadeUp>
           <Link href={`/services/${featured.slug}`} className="group block mb-10">
             <motion.div
               whileHover={{ y: -4 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="grid lg:grid-cols-2 bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-border"
+              className="grid lg:grid-cols-2 bg-foreground overflow-hidden shadow-xl border border-white/5 corner-cut-lg"
             >
               <div className="relative h-64 lg:h-[400px] overflow-hidden">
-                <Image
-                  src={featured.image}
-                  alt={featured.title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <Image src={featured.image} alt={featured.title} fill sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
               </div>
               <div className="p-8 lg:p-12 flex flex-col justify-center">
-                <span className="text-accent font-bold text-xs uppercase tracking-[0.2em] mb-3">Featured Service</span>
-                <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors font-display">
+                <div className="h-0.5 w-10 bg-gradient-to-r from-primary to-accent mb-5" />
+                <span className="text-accent font-bold text-[10px] uppercase tracking-[0.2em] mb-3">Featured Service</span>
+                <h3 className="text-2xl lg:text-3xl font-black text-white mb-4 uppercase tracking-tight group-hover:text-accent transition-colors">
                   {featured.title}
                 </h3>
-                <p className="text-muted leading-relaxed mb-6">{featured.excerpt}</p>
+                <p className="text-white/50 leading-relaxed mb-6">{featured.excerpt}</p>
                 {featured.highlights && (
                   <ul className="space-y-2 mb-6">
                     {featured.highlights.slice(0, 3).map((h, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm text-muted">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                      <li key={i} className="flex items-center gap-2 text-sm text-white/40">
+                        <span className="w-1 h-1 bg-primary shrink-0" />
                         {h}
                       </li>
                     ))}
                   </ul>
                 )}
-                <span className="inline-flex items-center text-primary font-semibold text-sm group-hover:gap-3 gap-2 transition-all">
+                <span className="inline-flex items-center text-primary font-bold text-[11px] uppercase tracking-widest group-hover:gap-3 gap-2 transition-all">
                   Learn More
                   <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -219,32 +236,27 @@ function ServicesSection() {
           </Link>
         </FadeUp>
 
-        {/* Remaining services — compact grid */}
+        {/* Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
           {rest.map((service, i) => (
             <FadeUp key={service.slug} delay={i * 0.08}>
-              <Link href={`/services/${service.slug}`} className="group block">
+              <Link href={`/services/${service.slug}`} className="group block h-full">
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-border h-full"
+                  className="bg-white overflow-hidden shadow-sm hover:shadow-xl border border-border hover:border-primary/20 transition-all duration-300 h-full corner-cut"
                 >
                   <div className="relative h-36 overflow-hidden">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
+                    <Image src={service.image} alt={service.title} fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                    <h3 className="absolute bottom-3 left-3 right-3 text-sm font-bold text-white">
-                      {service.title}
-                    </h3>
+                      className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-400" />
+                    <h3 className="absolute bottom-3 left-3 right-3 text-sm font-black text-white uppercase tracking-wide">{service.title}</h3>
                   </div>
                   <div className="p-4">
                     <p className="text-xs text-muted leading-relaxed line-clamp-2">{service.excerpt}</p>
-                    <span className="mt-3 inline-flex items-center text-primary font-semibold text-xs gap-1.5 group-hover:gap-2.5 transition-all">
+                    <span className="mt-3 inline-flex items-center text-primary font-bold text-[10px] gap-1.5 group-hover:gap-2.5 uppercase tracking-widest transition-all">
                       Details
                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -416,7 +428,7 @@ function Testimonials() {
   );
 }
 
-/* ─── VALUES — ASYMMETRIC EDITORIAL ─── */
+/* ─── VALUES ─── */
 function Values() {
   const values = [
     { icon: "★", title: "Our Commitment", text: "We are committed to providing our clients with the best possible service and ensuring that service is designed to meet each client's structural concerns." },
@@ -427,31 +439,41 @@ function Values() {
 
   return (
     <section className="py-14 lg:py-28 gradient-dark relative grain-overlay overflow-hidden">
+      <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-primary/30" />
+      <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-accent/20" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-20 items-start">
-          {/* Left — big statement */}
           <div className="lg:sticky lg:top-32">
             <FadeUp>
-              <div className="h-px w-12 bg-gradient-to-r from-accent to-primary mb-6" />
+              <div className="accent-line mb-6" />
             </FadeUp>
-            <AnimatedText text="Our Commitment to Excellence" as="h2" className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6" />
+            <div className="overflow-hidden">
+              <motion.h2
+                initial={{ y: "100%", opacity: 0 }}
+                whileInView={{ y: "0%", opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-6 uppercase tracking-tight"
+              >
+                Our Commitment<br /><span className="text-accent">to Excellence</span>
+              </motion.h2>
+            </div>
             <FadeUp delay={0.2}>
-              <p className="text-white/50 leading-relaxed">
+              <p className="text-white/40 leading-relaxed">
                 Every foundation we repair is built on trust, expertise, and an uncompromising standard of quality.
               </p>
             </FadeUp>
           </div>
 
-          {/* Right — value cards */}
           <div className="grid sm:grid-cols-2 gap-4">
             {values.map((v, i) => (
               <FadeUp key={i} delay={i * 0.1}>
-                <div className="glass-card rounded-2xl p-7 hover:border-primary/30 transition-colors group h-full">
-                  <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center text-primary text-lg mb-4 group-hover:bg-primary/25 transition-colors">
+                <div className="glass-card p-7 hover:border-primary/40 transition-all duration-300 group h-full corner-cut">
+                  <div className="w-10 h-10 bg-primary/15 flex items-center justify-center text-accent text-lg mb-4 group-hover:bg-primary/30 transition-colors corner-cut">
                     {v.icon}
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">{v.title}</h3>
-                  <p className="text-white/50 leading-relaxed text-sm">{v.text}</p>
+                  <h3 className="text-base font-black text-white mb-2 uppercase tracking-wider">{v.title}</h3>
+                  <p className="text-white/40 leading-relaxed text-sm">{v.text}</p>
                 </div>
               </FadeUp>
             ))}
@@ -597,14 +619,14 @@ function TrustBar() {
     { icon: "◆", label: "30 Years Experience" },
   ];
   return (
-    <section className="py-12 bg-surface border-y border-border">
+    <section className="py-10 bg-foreground border-y border-white/5 scanlines">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
           {items.map((item, i) => (
             <FadeUp key={i} delay={i * 0.1}>
-              <div className="flex items-center justify-center gap-3 py-3">
+              <div className={`flex items-center justify-center gap-3 py-4 ${i < 3 ? 'lg:border-r border-white/8' : ''}`}>
                 <span className="text-accent text-lg">{item.icon}</span>
-                <span className="text-sm font-semibold text-foreground uppercase tracking-wide">{item.label}</span>
+                <span className="text-[10px] font-black text-white/60 uppercase tracking-[0.18em]">{item.label}</span>
               </div>
             </FadeUp>
           ))}

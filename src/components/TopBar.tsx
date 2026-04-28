@@ -1,50 +1,50 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
 import { locations } from "@/lib/services";
 
-export default function TopBar() {
-  const [visible, setVisible] = useState(true);
-  const lastY = useRef(0);
+const tickerItems = [
+  { label: "Alexandria", phone: "(318) 321-3000", raw: "3183213000" },
+  { label: "Lafayette",  phone: "(337) 346-2200", raw: "3373462200" },
+  { label: "Baton Rouge",phone: "(225) 255-3070", raw: "2252553070" },
+  { label: "Licensed & Insured", phone: null, raw: null },
+  { label: "Free Estimates Available", phone: null, raw: null },
+  { label: "30+ Years of Experience", phone: null, raw: null },
+];
 
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      setVisible(y < 50 || y < lastY.current);
-      lastY.current = y;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+function TickerItem({ item }: { item: typeof tickerItems[0] }) {
   return (
-    <motion.div
-      animate={{ y: visible ? 0 : -48 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className="bg-foreground text-white text-xs font-semibold tracking-wide z-50 relative"
-    >
-      <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-center gap-4 sm:gap-6">
-        {/* Mobile: show only primary number */}
-        <a href={`tel:${locations[0].phoneRaw}`} className="sm:hidden flex items-center gap-1.5 hover:text-accent transition-colors">
-          <svg className="w-3 h-3 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-          </svg>
-          <span>Call {locations[0].phone}</span>
-        </a>
-        <span className="sm:hidden text-white/30 text-[10px]">Serving LA Statewide</span>
+    <span className="flex items-center gap-3 px-8 shrink-0">
+      <span className="w-1 h-1 bg-accent rounded-full shrink-0" />
+      <span className="text-accent/80 font-bold uppercase tracking-widest text-[10px]">
+        {item.label}
+      </span>
+      {item.phone && (
+        <>
+          <span className="text-white/20">—</span>
+          <a
+            href={`tel:${item.raw}`}
+            className="text-white/80 hover:text-accent transition-colors font-semibold text-[10px] tracking-wider"
+          >
+            {item.phone}
+          </a>
+        </>
+      )}
+    </span>
+  );
+}
 
-        {/* Desktop: all locations */}
-        {locations.map((loc, i) => (
-          <span key={loc.city} className="hidden sm:flex items-center gap-1.5">
-            {i > 0 && <span className="text-white/20 mx-1">&bull;</span>}
-            <span className="font-bold text-accent/80">{loc.city.toUpperCase()}:</span>
-            <a href={`tel:${loc.phoneRaw}`} className="hover:text-accent transition-colors">
-              {loc.phone}
-            </a>
-          </span>
+export default function TopBar() {
+  const doubled = [...tickerItems, ...tickerItems];
+  return (
+    <div className="bg-foreground border-b border-white/5 overflow-hidden relative z-50 h-8 flex items-center">
+      {/* Fade edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-foreground to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-foreground to-transparent z-10 pointer-events-none" />
+
+      <div className="ticker-track">
+        {doubled.map((item, i) => (
+          <TickerItem key={i} item={item} />
         ))}
-        <span className="hidden lg:inline text-white/40 ml-2 text-[10px] uppercase tracking-widest">&bull; Serving These Cities & Surrounding Areas</span>
       </div>
-    </motion.div>
+    </div>
   );
 }
